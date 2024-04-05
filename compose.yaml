@@ -1,0 +1,60 @@
+services:
+  member-svc:
+    container_name: member-svc
+    build:
+      context: /memberService
+    depends_on:
+      - mydb
+    ports:
+      - 8080:8080
+    networks:
+      - ysg
+    environment:
+      - MARIADB_DB_HOST=mydb
+      - MARIADB_DB_PORT=3306
+      - MARIADB_DB_USER=root
+      - MARIADB_DB_PASSWORD=1149
+      - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
+      - JWT_ACC=30
+      - JWT_REF=3
+      - ALLOW_ORIGIN=http://localhost:3000
+    image: yoonseungkwon/member-api:latest
+  friend-svc:
+    container_name: friend-svc
+    build:
+      context: /friendService
+    depends_on:
+      - mydb
+    ports:
+      - 8081:8080
+    networks:
+      - ysg
+    environment:
+      - MARIADB_DB_HOST=mydb
+      - MARIADB_DB_PORT=3306
+      - MARIADB_DB_USER=root
+      - MARIADB_DB_PASSWORD=1149
+      - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
+      - JWT_ACC=30
+      - JWT_REF=3
+      - ALLOW_ORIGIN=http://localhost:3000
+      - SVC_MEMBER=member-svc
+      - PORT_MEMBER=8080
+    image: yoonseungkwon/friend-api:latest
+  mydb:
+    image: mariadb
+    container_name: mydb
+    environment:
+      MYSQL_ROOT_PASSWORD: 1149
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - ysg
+
+volumes:
+  database:
+
+networks:
+  ysg:
