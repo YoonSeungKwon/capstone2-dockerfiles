@@ -1,8 +1,6 @@
 services:
   member-svc:
     container_name: member-svc
-    build:
-      context: /memberService
     depends_on:
       - mydb
     ports:
@@ -21,8 +19,6 @@ services:
     image: yoonseungkwon/member-api:latest
   friend-svc:
     container_name: friend-svc
-    build:
-      context: /friendService
     depends_on:
       - mydb
     ports:
