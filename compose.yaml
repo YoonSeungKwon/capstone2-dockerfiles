@@ -1,4 +1,12 @@
 services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - friend-svc
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=60
   member-svc:
     container_name: member-svc
     depends_on:
@@ -15,7 +23,7 @@ services:
       - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
       - JWT_ACC=30
       - JWT_REF=3
-      - ALLOW_ORIGIN=http://localhost:62536
+      - ALLOW_ORIGIN=http://localhost:3000
     image: yoonseungkwon/member-api:latest
   friend-svc:
     container_name: friend-svc
@@ -33,7 +41,7 @@ services:
       - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
       - JWT_ACC=30
       - JWT_REF=3
-      - ALLOW_ORIGIN=http://localhost:62536
+      - ALLOW_ORIGIN=http://localhost:3000
       - SVC_MEMBER=member-svc
       - PORT_MEMBER=8080
     image: yoonseungkwon/friend-api:latest
@@ -43,7 +51,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1149
     volumes:
-      - ./database:/var/lib/mysql
+      - database:/var/lib/mysql
     ports:
       - 3306:3306
     networks:
