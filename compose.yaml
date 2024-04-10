@@ -15,7 +15,7 @@ services:
       - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
       - JWT_ACC=30
       - JWT_REF=3
-      - ALLOW_ORIGIN=http://localhost:3000
+      - ALLOW_ORIGIN=http://localhost:62536
     image: yoonseungkwon/member-api:latest
   friend-svc:
     container_name: friend-svc
@@ -33,7 +33,7 @@ services:
       - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
       - JWT_ACC=30
       - JWT_REF=3
-      - ALLOW_ORIGIN=http://localhost:3000
+      - ALLOW_ORIGIN=http://localhost:62536
       - SVC_MEMBER=member-svc
       - PORT_MEMBER=8080
     image: yoonseungkwon/friend-api:latest
