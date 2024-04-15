@@ -62,7 +62,7 @@ services:
       - JWT_ACC=30
       - JWT_REF=3
       - ALLOW_ORIGIN=http://localhost:3000
-    image: yoonseungkwon/member-api:latest
+    image: yoonseungkwon/pin-api:latest
   mydb:
     image: mariadb
     container_name: mydb
