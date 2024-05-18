@@ -45,12 +45,30 @@ services:
       - SVC_MEMBER=member-svc
       - PORT_MEMBER=8080
     image: yoonseungkwon/friend-api:latest
-  pin-svc:
-    container_name: pin-svc
+  map-svc:
+    container_name: map-svc
     depends_on:
       - friend-svc
     ports:
       - 8082:8080
+    networks:
+      - ysg
+    environment:
+      - MARIADB_DB_HOST=mydb
+      - MARIADB_DB_PORT=3306
+      - MARIADB_DB_USER=root
+      - MARIADB_DB_PASSWORD=1149
+      - JWT_SECRET=dbstmdrnjsdmlxptmxmehzjtjqjqlalfzlzhem
+      - JWT_ACC=30
+      - JWT_REF=3
+      - ALLOW_ORIGIN=http://localhost:3000
+    image: yoonseungkwon/map-api:latest
+  pin-svc:
+    container_name: pin-svc
+    depends_on:
+      - map-svc
+    ports:
+      - 8083:8080
     networks:
       - ysg
     environment:
